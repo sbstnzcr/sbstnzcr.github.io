@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sebastian — Full-stack developer</title>
+<meta name="description" content="Sebastian — full-stack developer. Multi-tenant booking platforms, self-hosted Next.js apps on AWS, and ML inference services.">
+<style>
+  :root{
+    color-scheme: dark light;
+    --bg: #0b0d10;
+    --bg-elevated: #14171c;
+    --border: #262b33;
+    --text: #eceef1;
+    --text-dim: #a3a9b3;
+    --text-faint: #6b7280;
+    --accent: #7dd3c0;
+    --accent-dim: #4d9c8c;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg: #fbfbfa;
+      --bg-elevated: #ffffff;
+      --border: #e3e3e0;
+      --text: #16181c;
+      --text-dim: #52575e;
+      --text-faint: #8a8f97;
+      --accent: #1f8f78;
+      --accent-dim: #17705e;
+    }
+  }
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    padding: 0 24px;
+  }
+  .wrap{ max-width: 760px; margin: 0 auto; }
+
+  header.site{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 28px 0 0;
+    font-family: var(--mono);
+    font-size: 14px;
+  }
+  header.site nav a{
+    color: var(--text-dim);
+    text-decoration:none;
+    margin-left: 20px;
+    transition: color .15s ease;
+  }
+  header.site nav a:hover{ color: var(--accent); }
+  header.site .mark{ color: var(--text); font-weight:600; }
+
+  .hero{
+    padding: 96px 0 64px;
+  }
+  .hero .eyebrow{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: .04em;
+    margin: 0 0 14px;
+  }
+  .hero h1{
+    font-size: clamp(32px, 5vw, 44px);
+    line-height: 1.15;
+    margin: 0 0 18px;
+    letter-spacing: -0.01em;
+  }
+  .hero p.lede{
+    font-size: 17px;
+    color: var(--text-dim);
+    max-width: 58ch;
+    margin: 0 0 28px;
+  }
+  .hero .cta{
+    display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration:none;
+    font-family: var(--mono);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color .15s ease, transform .1s ease;
+  }
+  .btn:hover{ border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary{
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0b0d10;
+    font-weight: 600;
+  }
+  .btn.primary:hover{ background: var(--accent-dim); border-color: var(--accent-dim); }
+
+  section{ padding: 56px 0; border-top: 1px solid var(--border); }
+  section h2{
+    font-family: var(--mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--text-faint);
+    margin: 0 0 32px;
+  }
+
+  .project{
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .project:last-child{ border-bottom: none; padding-bottom: 0; }
+  .project:first-child{ padding-top: 0; }
+  .project-head{
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .project-head h3{
+    margin:0;
+    font-size: 19px;
+  }
+  .project-head .link{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .project-head .link:hover{ text-decoration: underline; }
+  .project p{
+    color: var(--text-dim);
+    margin: 0 0 14px;
+    font-size: 15px;
+  }
+  .tags{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .tag{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px 10px;
+  }
+
+  .stack-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .stack-grid div{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--bg-elevated);
+  }
+
+  footer{
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer .contact a{
+    color: var(--text);
+    text-decoration:none;
+    font-family: var(--mono);
+    font-size: 14px;
+    margin-right: 20px;
+  }
+  footer .contact a:hover{ color: var(--accent); }
+  footer .fine{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-faint);
+  }
+
+  @media (max-width: 480px){
+    header.site nav a{ margin-left: 14px; }
+    .hero{ padding: 64px 0 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="site">
+    <span class="mark">Sebastian</span>
+    <nav>
+      <a href="#work">Work</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <p class="eyebrow">// full-stack developer</p>
+    <h1>I build and ship multi-tenant products end to end — backend, frontend, and the AWS infra underneath.</h1>
+    <p class="lede">
+      Currently building <strong>Bookr</strong>, a multi-tenant booking platform (FastAPI + PostgreSQL,
+      Next.js admin, a shared widget package used across every client site), and running the
+      self-hosted infrastructure for several of its production clients.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#work">See the work</a>
+      <a class="btn" href="mailto:sbstnzcr@gmail.com">Get in touch</a>
+      <a class="btn" href="https://github.com/sbstnzcr">GitHub ↗</a>
+    </div>
+  </section>
+
+  <section id="work">
+    <h2>Selected work</h2>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Bookr</h3>
+      </div>
+      <p>
+        Multi-tenant booking engine that powers reservation flows for multiple independent
+        businesses from one codebase. Backend is FastAPI + PostgreSQL with tenant isolation by
+        <code>company_id</code>; a Next.js admin dashboard handles calendars, clients, and reports
+        for staff. The booking logic itself — slot fetching, hooks, client auth — lives in a
+        shared package, <code>@bookr-cl/widget</code>, published to npm and consumed by every
+        client-facing site, so a fix in one place ships everywhere. Backend infra is on AWS
+        (Lambda, API Gateway) managed with Terraform.
+      </p>
+      <div class="tags">
+        <span class="tag">FastAPI</span>
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">Next.js</span>
+        <span class="tag">TypeScript</span>
+        <span class="tag">npm package</span>
+        <span class="tag">AWS Lambda</span>
+        <span class="tag">Terraform</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Ko Pilates</h3>
+      </div>
+      <p>
+        Production booking site for a pilates studio, built on Bookr: a Next.js front end
+        consuming <code>@bookr-cl/widget</code> against the Bookr API for real-time class
+        scheduling and client management.
+      </p>
+      <div class="tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">Bookr widget</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Mompania</h3>
+        <a class="link" href="https://mompania.cl" target="_blank" rel="noopener">mompania.cl ↗</a>
+      </div>
+      <p>
+        Migrated this client off the shared Bookr platform to a fully self-hosted stack:
+        Next.js with Server Actions, Prisma against Neon Postgres, deployed to Lambda + CloudFront
+        via OpenNext. No shared backend dependency — the whole booking and admin experience is
+        owned end to end for this one tenant.
+      </p>
+      <div class="tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">Server Actions</span>
+        <span class="tag">Prisma</span>
+        <span class="tag">Neon</span>
+        <span class="tag">AWS Lambda</span>
+        <span class="tag">OpenNext</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>Retro Gusto Specialty Coffee</h3>
+        <a class="link" href="https://retrogusto.solodev.cl" target="_blank" rel="noopener">retrogusto.solodev.cl ↗</a>
+      </div>
+      <p>
+        Self-hosted site for a specialty coffee shop, same architecture pattern as Mompania.
+        Public menu is fully editable from a built-in <code>/admin</code> panel, including direct
+        product-photo uploads to S3 — the real menu (12 categories, 74 products) was imported
+        from the shop's existing point-of-sale system rather than hand-typed.
+      </p>
+      <div class="tags">
+        <span class="tag">Next.js</span>
+        <span class="tag">Prisma</span>
+        <span class="tag">Neon</span>
+        <span class="tag">Admin CMS</span>
+        <span class="tag">S3 uploads</span>
+      </div>
+    </div>
+
+    <div class="project">
+      <div class="project-head">
+        <h3>zwatch</h3>
+      </div>
+      <p>
+        Inference-as-a-service for security video: a multi-tenant, model-agnostic detection
+        pipeline. Lets a client swap the underlying detection model per tenant without changing
+        how video ingestion, alerting, or storage work.
+      </p>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">ML inference</span>
+        <span class="tag">Multi-tenant architecture</span>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="stack">
+    <h2>Stack</h2>
+    <div class="stack-grid">
+      <div>Python / FastAPI</div>
+      <div>TypeScript</div>
+      <div>Next.js</div>
+      <div>React</div>
+      <div>PostgreSQL</div>
+      <div>Prisma</div>
+      <div>AWS (Lambda, API Gateway, S3, CloudFront)</div>
+      <div>Terraform</div>
+      <div>Docker</div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="contact">
+      <a href="mailto:sbstnzcr@gmail.com">sbstnzcr@gmail.com</a>
+      <a href="https://github.com/sbstnzcr" target="_blank" rel="noopener">github.com/sbstnzcr</a>
+    </div>
+    <span class="fine">Built with plain HTML/CSS, hosted on GitHub Pages.</span>
+  </footer>
+
+</div>
+</body>
+</html>
