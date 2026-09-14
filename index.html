@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sebastian — Full-stack developer</title>
-<meta name="description" content="Sebastian — full-stack developer. Multi-tenant booking platforms, self-hosted Next.js apps on AWS, and ML inference services.">
+<title>Sebastian | Full-stack developer</title>
+<meta name="description" content="Sebastian, full-stack developer. Multi-tenant booking platforms, self-hosted Next.js apps on AWS, and ML inference services.">
 <style>
   :root{
     color-scheme: dark light;
@@ -51,6 +51,7 @@
     font-family: var(--mono);
     font-size: 14px;
   }
+  header.site nav{ display:flex; align-items:center; }
   header.site nav a{
     color: var(--text-dim);
     text-decoration:none;
@@ -59,6 +60,20 @@
   }
   header.site nav a:hover{ color: var(--accent); }
   header.site .mark{ color: var(--text); font-weight:600; }
+
+  .lang-btn{
+    margin-left: 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-dim);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 12px;
+    cursor: pointer;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .lang-btn:hover{ border-color: var(--accent); color: var(--accent); }
 
   .hero{
     padding: 96px 0 64px;
@@ -204,6 +219,7 @@
 
   @media (max-width: 480px){
     header.site nav a{ margin-left: 14px; }
+    .lang-btn{ margin-left: 14px; }
     .hero{ padding: 64px 0 48px; }
   }
 </style>
@@ -214,41 +230,42 @@
   <header class="site">
     <span class="mark">Sebastian</span>
     <nav>
-      <a href="#work">Work</a>
-      <a href="#stack">Stack</a>
-      <a href="#contact">Contact</a>
+      <a href="#work" data-i18n="nav.work">Work</a>
+      <a href="#stack" data-i18n="nav.stack">Stack</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <button type="button" id="lang-toggle" class="lang-btn" aria-label="Switch language">ES</button>
     </nav>
   </header>
 
   <section class="hero">
-    <p class="eyebrow">// full-stack developer</p>
-    <h1>I build and ship multi-tenant products end to end — backend, frontend, and the AWS infra underneath.</h1>
-    <p class="lede">
+    <p class="eyebrow" data-i18n="hero.eyebrow">// full-stack developer</p>
+    <h1 data-i18n="hero.h1">I build and ship multi-tenant products end to end: backend, frontend, and the AWS infra underneath.</h1>
+    <p class="lede" data-i18n="hero.lede">
       Currently building <strong>Bookr</strong>, a multi-tenant booking platform (FastAPI + PostgreSQL,
       Next.js admin, a shared widget package used across every client site), and running the
       self-hosted infrastructure for several of its production clients.
     </p>
     <div class="cta">
-      <a class="btn primary" href="#work">See the work</a>
-      <a class="btn" href="mailto:sbstnzcr@gmail.com">Get in touch</a>
-      <a class="btn" href="https://github.com/sbstnzcr">GitHub ↗</a>
+      <a class="btn primary" href="#work" data-i18n="hero.cta.work">See the work</a>
+      <a class="btn" href="mailto:sbstnzcr@gmail.com" data-i18n="hero.cta.contact">Get in touch</a>
+      <a class="btn" href="https://github.com/sbstnzcr">GitHub &#8599;</a>
     </div>
   </section>
 
   <section id="work">
-    <h2>Selected work</h2>
+    <h2 data-i18n="work.heading">Selected work</h2>
 
     <div class="project">
       <div class="project-head">
         <h3>Bookr</h3>
       </div>
-      <p>
+      <p data-i18n="project.bookr.desc">
         Multi-tenant booking engine that powers reservation flows for multiple independent
         businesses from one codebase. Backend is FastAPI + PostgreSQL with tenant isolation by
         <code>company_id</code>; a Next.js admin dashboard handles calendars, clients, and reports
-        for staff. The booking logic itself — slot fetching, hooks, client auth — lives in a
-        shared package, <code>@bookr-cl/widget</code>, published to npm and consumed by every
-        client-facing site, so a fix in one place ships everywhere. Backend infra is on AWS
+        for staff. The booking logic itself, including slot fetching, hooks, and client auth,
+        lives in a shared package, <code>@bookr-cl/widget</code>, published to npm and consumed by
+        every client-facing site, so a fix in one place ships everywhere. Backend infra is on AWS
         (Lambda, API Gateway) managed with Terraform.
       </p>
       <div class="tags">
@@ -266,7 +283,7 @@
       <div class="project-head">
         <h3>Ko Pilates</h3>
       </div>
-      <p>
+      <p data-i18n="project.kopilates.desc">
         Production booking site for a pilates studio, built on Bookr: a Next.js front end
         consuming <code>@bookr-cl/widget</code> against the Bookr API for real-time class
         scheduling and client management.
@@ -280,13 +297,13 @@
     <div class="project">
       <div class="project-head">
         <h3>Mompania</h3>
-        <a class="link" href="https://mompania.cl" target="_blank" rel="noopener">mompania.cl ↗</a>
+        <a class="link" href="https://mompania.cl" target="_blank" rel="noopener">mompania.cl &#8599;</a>
       </div>
-      <p>
+      <p data-i18n="project.mompania.desc">
         Migrated this client off the shared Bookr platform to a fully self-hosted stack:
-        Next.js with Server Actions, Prisma against Neon Postgres, deployed to Lambda + CloudFront
-        via OpenNext. No shared backend dependency — the whole booking and admin experience is
-        owned end to end for this one tenant.
+        Next.js with Server Actions, Prisma against Neon Postgres, deployed to Lambda and
+        CloudFront via OpenNext. No shared backend dependency: the whole booking and admin
+        experience is owned end to end for this one tenant.
       </p>
       <div class="tags">
         <span class="tag">Next.js</span>
@@ -301,13 +318,13 @@
     <div class="project">
       <div class="project-head">
         <h3>Retro Gusto Specialty Coffee</h3>
-        <a class="link" href="https://retrogusto.solodev.cl" target="_blank" rel="noopener">retrogusto.solodev.cl ↗</a>
+        <a class="link" href="https://retrogusto.solodev.cl" target="_blank" rel="noopener">retrogusto.solodev.cl &#8599;</a>
       </div>
-      <p>
+      <p data-i18n="project.retrogusto.desc">
         Self-hosted site for a specialty coffee shop, same architecture pattern as Mompania.
         Public menu is fully editable from a built-in <code>/admin</code> panel, including direct
-        product-photo uploads to S3 — the real menu (12 categories, 74 products) was imported
-        from the shop's existing point-of-sale system rather than hand-typed.
+        product-photo uploads to S3. The real menu (12 categories, 74 products) was imported from
+        the shop's existing point-of-sale system rather than hand-typed.
       </p>
       <div class="tags">
         <span class="tag">Next.js</span>
@@ -322,7 +339,7 @@
       <div class="project-head">
         <h3>zwatch</h3>
       </div>
-      <p>
+      <p data-i18n="project.zwatch.desc">
         Inference-as-a-service for security video: a multi-tenant, model-agnostic detection
         pipeline. Lets a client swap the underlying detection model per tenant without changing
         how video ingestion, alerting, or storage work.
@@ -337,7 +354,7 @@
   </section>
 
   <section id="stack">
-    <h2>Stack</h2>
+    <h2 data-i18n="stack.heading">Stack</h2>
     <div class="stack-grid">
       <div>Python / FastAPI</div>
       <div>TypeScript</div>
@@ -356,9 +373,96 @@
       <a href="mailto:sbstnzcr@gmail.com">sbstnzcr@gmail.com</a>
       <a href="https://github.com/sbstnzcr" target="_blank" rel="noopener">github.com/sbstnzcr</a>
     </div>
-    <span class="fine">Built with plain HTML/CSS, hosted on GitHub Pages.</span>
+    <span class="fine" data-i18n="footer.fine">Built with plain HTML/CSS, hosted on GitHub Pages.</span>
   </footer>
 
 </div>
+
+<script>
+(function(){
+  var translations = {
+    en: {
+      "meta.title": "Sebastian | Full-stack developer",
+      "meta.description": "Sebastian, full-stack developer. Multi-tenant booking platforms, self-hosted Next.js apps on AWS, and ML inference services.",
+      "nav.work": "Work",
+      "nav.stack": "Stack",
+      "nav.contact": "Contact",
+      "hero.eyebrow": "// full-stack developer",
+      "hero.h1": "I build and ship multi-tenant products end to end: backend, frontend, and the AWS infra underneath.",
+      "hero.lede": 'Currently building <strong>Bookr</strong>, a multi-tenant booking platform (FastAPI + PostgreSQL, Next.js admin, a shared widget package used across every client site), and running the self-hosted infrastructure for several of its production clients.',
+      "hero.cta.work": "See the work",
+      "hero.cta.contact": "Get in touch",
+      "work.heading": "Selected work",
+      "project.bookr.desc": 'Multi-tenant booking engine that powers reservation flows for multiple independent businesses from one codebase. Backend is FastAPI + PostgreSQL with tenant isolation by <code>company_id</code>; a Next.js admin dashboard handles calendars, clients, and reports for staff. The booking logic itself, including slot fetching, hooks, and client auth, lives in a shared package, <code>@bookr-cl/widget</code>, published to npm and consumed by every client-facing site, so a fix in one place ships everywhere. Backend infra is on AWS (Lambda, API Gateway) managed with Terraform.',
+      "project.kopilates.desc": 'Production booking site for a pilates studio, built on Bookr: a Next.js front end consuming <code>@bookr-cl/widget</code> against the Bookr API for real-time class scheduling and client management.',
+      "project.mompania.desc": 'Migrated this client off the shared Bookr platform to a fully self-hosted stack: Next.js with Server Actions, Prisma against Neon Postgres, deployed to Lambda and CloudFront via OpenNext. No shared backend dependency: the whole booking and admin experience is owned end to end for this one tenant.',
+      "project.retrogusto.desc": "Self-hosted site for a specialty coffee shop, same architecture pattern as Mompania. Public menu is fully editable from a built-in <code>/admin</code> panel, including direct product-photo uploads to S3. The real menu (12 categories, 74 products) was imported from the shop's existing point-of-sale system rather than hand-typed.",
+      "project.zwatch.desc": "Inference-as-a-service for security video: a multi-tenant, model-agnostic detection pipeline. Lets a client swap the underlying detection model per tenant without changing how video ingestion, alerting, or storage work.",
+      "stack.heading": "Stack",
+      "footer.fine": "Built with plain HTML/CSS, hosted on GitHub Pages.",
+      "lang.toggle": "ES"
+    },
+    es: {
+      "meta.title": "Sebastian | Desarrollador full-stack",
+      "meta.description": "Sebastian, desarrollador full-stack. Plataformas de reservas multi-tenant, apps self-hosted en Next.js sobre AWS, y servicios de inferencia ML.",
+      "nav.work": "Trabajo",
+      "nav.stack": "Stack",
+      "nav.contact": "Contacto",
+      "hero.eyebrow": "// desarrollador full-stack",
+      "hero.h1": "Construyo y despliego productos multi-tenant de punta a punta: backend, frontend, y la infraestructura AWS detrás.",
+      "hero.lede": 'Actualmente construyendo <strong>Bookr</strong>, una plataforma de reservas multi-tenant (FastAPI + PostgreSQL, admin en Next.js, un paquete de widget compartido usado en cada sitio de cliente), y operando la infraestructura self-hosted de varios de sus clientes en producción.',
+      "hero.cta.work": "Ver el trabajo",
+      "hero.cta.contact": "Escríbeme",
+      "work.heading": "Trabajo destacado",
+      "project.bookr.desc": 'Motor de reservas multi-tenant que resuelve el flujo de reservas de varios negocios independientes desde una sola base de código. El backend es FastAPI + PostgreSQL con aislamiento por <code>company_id</code>; un dashboard en Next.js maneja calendarios, clientes y reportes para el staff. La lógica de reservas en sí, incluyendo la obtención de horarios, hooks y autenticación de clientes, vive en un paquete compartido, <code>@bookr-cl/widget</code>, publicado en npm y consumido por cada sitio de cara al cliente, así que arreglar algo en un lugar lo arregla en todos. La infraestructura backend corre en AWS (Lambda, API Gateway) gestionada con Terraform.',
+      "project.kopilates.desc": 'Sitio de reservas en producción para un estudio de pilates, construido sobre Bookr: un frontend en Next.js que consume <code>@bookr-cl/widget</code> contra la API de Bookr para agendamiento de clases en tiempo real y gestión de clientes.',
+      "project.mompania.desc": 'Migré a este cliente de la plataforma compartida de Bookr a un stack completamente self-hosted: Next.js con Server Actions, Prisma contra Neon Postgres, desplegado a Lambda y CloudFront vía OpenNext. Sin dependencia de backend compartido: toda la experiencia de reservas y administración es propia de punta a punta para este tenant.',
+      "project.retrogusto.desc": "Sitio self-hosted para una cafetería de especialidad, mismo patrón de arquitectura que Mompania. El menú público es totalmente editable desde un panel <code>/admin</code> propio, incluyendo subida directa de fotos de producto a S3. El menú real (12 categorías, 74 productos) se importó del sistema de punto de venta existente del local en vez de escribirse a mano.",
+      "project.zwatch.desc": "Inference-as-a-service para video de seguridad: un pipeline de detección multi-tenant y agnóstico de modelo. Permite a un cliente cambiar el modelo de detección subyacente por tenant sin cambiar cómo funciona la ingesta de video, las alertas o el almacenamiento.",
+      "stack.heading": "Stack",
+      "footer.fine": "Hecho con HTML/CSS plano, alojado en GitHub Pages.",
+      "lang.toggle": "EN"
+    }
+  };
+
+  var STORAGE_KEY = "lang";
+  var titleEl = document.querySelector("title");
+  var metaDesc = document.querySelector('meta[name="description"]');
+  var toggleBtn = document.getElementById("lang-toggle");
+  var nodes = document.querySelectorAll("[data-i18n]");
+
+  function detectDefault(){
+    try{
+      var saved = localStorage.getItem(STORAGE_KEY);
+      if(saved === "en" || saved === "es") return saved;
+    }catch(e){}
+    var nav = (navigator.language || "en").toLowerCase();
+    return nav.indexOf("es") === 0 ? "es" : "en";
+  }
+
+  function render(lang){
+    var dict = translations[lang];
+    if(!dict) return;
+    document.documentElement.setAttribute("lang", lang);
+    titleEl.textContent = dict["meta.title"];
+    if(metaDesc) metaDesc.setAttribute("content", dict["meta.description"]);
+    nodes.forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if(dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    if(toggleBtn) toggleBtn.textContent = dict["lang.toggle"];
+    toggleBtn.setAttribute("data-current", lang);
+    try{ localStorage.setItem(STORAGE_KEY, lang); }catch(e){}
+  }
+
+  render(detectDefault());
+
+  toggleBtn.addEventListener("click", function(){
+    var current = toggleBtn.getAttribute("data-current") || "en";
+    render(current === "en" ? "es" : "en");
+  });
+})();
+</script>
+
 </body>
 </html>
